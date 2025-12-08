@@ -7,19 +7,16 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.HasContext;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-
 import java.util.Set;
 
 public class ArticlePageObject extends MainPageObject {
 
-    private static final String
-            TITLE = "//android.widget.TextView[@heading='true']",
-            SAVE_BUTTON = "//*[@resource-id='org.wikipedia:id/title' and @text='Save']",
-            ADD_TO_LIST_BUTTON = "//*[@resource-id='org.wikipedia:id/snackbar_action' and @text='Add to list']",
-            MY_LIST_NAME_INPUT = "org.wikipedia:id/text_input",
-            My_LIST_OK_BUTTON = "android:id/button1",
-            NAME_OF_EXISTING_FOLDER_TPL = "//*[@resource-id='org.wikipedia:id/item_title' and @text='{NAME_OF_FOLDER}']";
+    public static final String TITLE = "//android.widget.TextView[@heading='true']";
+    private static final String SAVE_BUTTON = "//*[@resource-id='org.wikipedia:id/title' and @text='Save']";
+    private static final String ADD_TO_LIST_BUTTON = "//*[@resource-id='org.wikipedia:id/snackbar_action' and @text='Add to list']";
+    private static final String MY_LIST_NAME_INPUT = "org.wikipedia:id/text_input";
+    private static final String My_LIST_OK_BUTTON = "android:id/button1";
+    private static final String NAME_OF_EXISTING_FOLDER_TPL = "//*[@resource-id='org.wikipedia:id/item_title' and @text='{NAME_OF_FOLDER}']";
 
     public ArticlePageObject (AppiumDriver driver, WebDriverWait wait) {
         super(driver, wait);
@@ -32,24 +29,20 @@ public class ArticlePageObject extends MainPageObject {
     }
 
     // Метод, в котором будем получать название статьи:
-    public String getArticleTitle()
-    {
+    public String getArticleTitle() {
         WebElement title_element = waitForTitleElement();
         return title_element.getAttribute("text");
     }
 
     // TEMPLATES METHODS //
-    public static String getNameOfExistingFolder(String name_of_folder)
-    {
+    public static String getNameOfExistingFolder(String name_of_folder) {
         return NAME_OF_EXISTING_FOLDER_TPL.replace("{NAME_OF_FOLDER}", name_of_folder);
     }
-// TEMPLATES METHODS //
-
+    // TEMPLATES METHODS //
 
     // Метод, который добавляет статью по лонг тапу на результат поиска и выбору опции в выпадающем меню в новый список
 
-    public void AddArticleFromDropDownMenuToTheListBeingCreated (String name_of_folder)
-    {
+    public void AddArticleFromDropDownMenuToTheListBeingCreated (String name_of_folder) {
         this.waitForElementAndClick(
                 By.xpath(SAVE_BUTTON), "Cannot find Save button", 5);
 
@@ -63,11 +56,9 @@ public class ArticlePageObject extends MainPageObject {
                 By.id(My_LIST_OK_BUTTON), "Cannot press OK", 5);
     }
 
+    // Метод, который добавляет статью по лонг тапу на результат поиска и выбору опции в выпадающем меню в СУЩЕСТВУЮЩИЙ список
 
-// Метод, который добавляет статью по лонг тапу на результат поиска и выбору опции в выпадающем меню в СУЩЕСТВУЮЩИЙ список
-
-    public void addArticleFromDropDownMenuToTheExistingList (String name_of_folder)
-    {
+    public void addArticleFromDropDownMenuToTheExistingList (String name_of_folder) {
         this.waitForElementAndClick(
                 By.xpath(SAVE_BUTTON), "Cannot find Save button", 5);
 
@@ -77,14 +68,9 @@ public class ArticlePageObject extends MainPageObject {
         this.clickOnExistingFolder (name_of_folder);
     }
 
-    public void clickOnExistingFolder (String name_of_folder)
-    {
+    public void clickOnExistingFolder (String name_of_folder) {
         String name_of_folder_xpath = getNameOfExistingFolder(name_of_folder);
         this.waitForElementAndClick(By.xpath(name_of_folder_xpath),"Cannot find and click on folder with name" + name_of_folder, 5);
     }
-
-
-
-
 
 }

@@ -66,4 +66,15 @@ public class AssertionsHelper extends MainPageObject {
     public void assertElementHasAnyText(By by) {
         this.assertElementHasText(by, "Element has no text");
     }
+
+    // Проверяет, что результаты поиска исчезли
+    public void waitForSearchResultsToDisappear() {
+        this.waitForElementNotPresent(
+                By.id(SEARCH_RESULT_TITLE),
+                "Search results still present after cancel",
+                5
+        );
+    }
+
+
 }

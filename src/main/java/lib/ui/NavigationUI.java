@@ -21,6 +21,4 @@ public class NavigationUI extends MainPageObject {
         this.waitForElementAndClick(By.xpath(NAVIGATE_UP_BUTTON),"Cannot find and click navigate up button", 10);
     }
 
-
-
 }

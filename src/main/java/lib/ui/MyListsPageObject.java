@@ -8,7 +8,10 @@ public class MyListsPageObject extends MainPageObject {
 
     private static final String
             VIEW_LIST_BUTTON = "//*[@resource-id='org.wikipedia:id/snackbar_action' and @text='View list']",
-            ARTICLE_BY_TITLE_TPL = "//*[@text='{TITLE}'] ";
+            ARTICLE_BY_TITLE_TPL = "//*[@text='{TITLE}'] ",
+            GOT_IT_BUTTON = "//*[@resource-id='org.wikipedia:id/buttonView' and @text='Got it']",
+            CLOSE_BUTTON = "org.wikipedia:id/closeButton",
+            PAGE_WEB_VIEW = "org.wikipedia:id/page_web_view";
 
     public MyListsPageObject (AppiumDriver driver, WebDriverWait wait)
     {
@@ -17,45 +20,37 @@ public class MyListsPageObject extends MainPageObject {
 
     // TEMPLATES METHODS //
 
-    public static String getSavedArticleXpathByTitle(String article_title)
-    {
+    public static String getSavedArticleXpathByTitle(String article_title) {
         return  ARTICLE_BY_TITLE_TPL.replace("{TITLE}", article_title);
     }
     // TEMPLATES METHODS //
 
 
-    public void viewListFromSnackbar ()
-
-    {
+    public void openListFromSnackbar() {
         this.waitForElementAndClick(
-                By.xpath("//*[@resource-id='org.wikipedia:id/snackbar_action' and @text='View list']"), "Cannot view the list", 5);
+                By.xpath(VIEW_LIST_BUTTON), "Cannot view the list", 5);
 
         try {
             this.waitForElementAndClick(
-                    By.xpath("//*[@resource-id='org.wikipedia:id/buttonView' and @text='Got it']"),
+                    By.xpath(GOT_IT_BUTTON),
                     "Cannot find Got it tip overlay", 5);
         } catch (Exception e) {
         }
-
     }
 
-    public void waitForArticleToAppearByTitle (String article_title)
-    {
+    public void waitForArticleToAppearByTitle (String article_title) {
         String article_xpath = getSavedArticleXpathByTitle(article_title);
         this.waitForElementPresent(By.xpath(article_xpath), "Cannot find saved article by title" + article_title, 10);
     }
 
 
-    public void waitForArticleToDisappearByTitle (String article_title)
-    {
+    public void waitForArticleToDisappearByTitle (String article_title) {
         String article_xpath = getSavedArticleXpathByTitle(article_title);
         this.waitForElementNotPresent(By.xpath(article_xpath), "Saved article still present with title" + article_title, 10);
     }
 
 
-    public void swipeByArticleToDelete (String article_title)
-
-    {
+    public void swipeByArticleToDelete (String article_title) {
         this.waitForArticleToAppearByTitle(article_title);
         String article_xpath = getSavedArticleXpathByTitle(article_title);
         this.swipeElementToLeft
@@ -69,15 +64,14 @@ public class MyListsPageObject extends MainPageObject {
         this.waitForElementAndClick(By.xpath(article_xpath), "Cannot find and click article: " + article_title, 5);
 
         try {
-            this.waitForElementAndClick(By.id("org.wikipedia:id/closeButton"), "Cannot find the X button", 5);
+            this.waitForElementAndClick(By.id(CLOSE_BUTTON), "Cannot find the X button", 5);
         } catch (Exception e) {
         }
 
         try {
-            this.waitForElementAndClick(By.id("org.wikipedia:id/page_web_view"), "Cannot find Got it message", 5);
+            this.waitForElementAndClick(By.id(PAGE_WEB_VIEW), "Cannot find Got it message", 5);
         } catch (Exception e) {
         }
     }
-
 
 }

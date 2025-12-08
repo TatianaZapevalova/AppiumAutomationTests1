@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 public class ChangeAppConditionTests extends CoreTestCase {
 
     @Test
-    public void saveArticleTitleAfterRotate() {
+    public void testCheckArticleTitleAfterRotate() {
 
         SearchPageObject SearchPageObject = new SearchPageObject(driver, wait);
         SearchPageObject.initSearchInput();

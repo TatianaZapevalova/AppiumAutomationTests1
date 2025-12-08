@@ -11,11 +11,9 @@ import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MainPageObject {
@@ -23,8 +21,7 @@ public class MainPageObject {
     protected AppiumDriver driver;
     protected WebDriverWait wait;
 
-    public MainPageObject(AppiumDriver driver, WebDriverWait wait)
-    {
+    public MainPageObject(AppiumDriver driver, WebDriverWait wait) {
         this.driver = driver;
         this.wait = wait;
     }
@@ -36,21 +33,17 @@ public class MainPageObject {
         );
     }
 
-    private WebElement waitForElementPresent (By by, String error_message)
-    {
+    private WebElement waitForElementPresent (By by, String error_message) {
         return waitForElementPresent(by, error_message, 5);
     }
 
-
-    public WebElement waitForElementAndClick(By by, String errorMessage, long timeoutInSeconds)
-    {
+    public WebElement waitForElementAndClick(By by, String errorMessage, long timeoutInSeconds) {
         WebElement element = waitForElementPresent(by, errorMessage, timeoutInSeconds);
         element.click();
         return element;
     }
 
-    public WebElement waitForElementAndSendKeys(By by, String value, String errorMessage, long timeoutInSeconds)
-    {
+    public WebElement waitForElementAndSendKeys(By by, String value, String errorMessage, long timeoutInSeconds) {
         WebElement element = waitForElementPresent(by, errorMessage, timeoutInSeconds);
         element.sendKeys(value);
         return element;

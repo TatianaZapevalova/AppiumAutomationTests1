@@ -8,13 +8,17 @@ import org.openqa.selenium.By;
 
 public class SearchTests extends CoreTestCase {
 
+    private static final By SEARCH_INPUT = By.id("org.wikipedia:id/search_src_text");
+    private static final String SEARCH_PLACEHOLDER = "Search Wikipedia";
+
     @Test
-    public void testSearchFieldPlaceholderText() {
+
+    public void testSearchFieldHasPlaceholderText() {
 
         SearchPageObject SearchPageObject = new SearchPageObject(driver, wait);
         SearchPageObject.initSearchInput();
         AssertionsHelper AssertionsHelper = new AssertionsHelper(driver, wait);
-        AssertionsHelper.assertElementHasExactText(By.id("org.wikipedia:id/search_src_text"),"Search Wikipedia");
+        AssertionsHelper.assertElementHasExactText(SEARCH_INPUT, SEARCH_PLACEHOLDER);
 
     }
 
@@ -29,6 +33,7 @@ public class SearchTests extends CoreTestCase {
         SearchPageObject.waitForCancelButtonToAppear();
         SearchPageObject.clickCancelSearch();
         SearchPageObject.waitForCancelButtonToDisappear();
+        AssertionsHelper.waitForSearchResultsToDisappear();
 
     }
 
