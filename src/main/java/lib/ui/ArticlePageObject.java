@@ -11,24 +11,25 @@ import java.util.Set;
 
 public class ArticlePageObject extends MainPageObject {
 
-    public static final String TITLE = "//android.widget.TextView[@heading='true']";
+    private static final String TITLE = "//android.widget.TextView[@index=\"0\"]";
     private static final String SAVE_BUTTON = "//*[@resource-id='org.wikipedia:id/title' and @text='Save']";
     private static final String ADD_TO_LIST_BUTTON = "//*[@resource-id='org.wikipedia:id/snackbar_action' and @text='Add to list']";
     private static final String MY_LIST_NAME_INPUT = "org.wikipedia:id/text_input";
-    private static final String My_LIST_OK_BUTTON = "android:id/button1";
+    private static final String MY_LIST_OK_BUTTON = "android:id/button1";
     private static final String NAME_OF_EXISTING_FOLDER_TPL = "//*[@resource-id='org.wikipedia:id/item_title' and @text='{NAME_OF_FOLDER}']";
 
     public ArticlePageObject (AppiumDriver driver, WebDriverWait wait) {
         super(driver, wait);
     }
 
-    // Метод, который ожидает появление заголовка статьи на экране:
+    // Метод, который ожидает появление заголовка статьи на экране
 
     public WebElement waitForTitleElement() {
         return this.waitForElementPresent(By.xpath(TITLE), "Cannot find article title", 10);
     }
 
-    // Метод, в котором будем получать название статьи:
+    // Метод, в котором будем получать название статьи
+
     public String getArticleTitle() {
         WebElement title_element = waitForTitleElement();
         return title_element.getAttribute("text");
@@ -53,7 +54,7 @@ public class ArticlePageObject extends MainPageObject {
                 By.id(MY_LIST_NAME_INPUT), name_of_folder, "Cannot put text into articles folder input", 5);
 
         this.waitForElementAndClick(
-                By.id(My_LIST_OK_BUTTON), "Cannot press OK", 5);
+                By.id(MY_LIST_OK_BUTTON), "Cannot press OK", 5);
     }
 
     // Метод, который добавляет статью по лонг тапу на результат поиска и выбору опции в выпадающем меню в СУЩЕСТВУЮЩИЙ список
